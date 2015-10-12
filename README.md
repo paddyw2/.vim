@@ -2,10 +2,8 @@
 
 Allows settings to be accessible anywhere for a quick VIM setup.
 
-Simply clone into home directory. It may be necessary to move or copy .vimrc to the home directory:
+Simply clone into home directory.
 
-<code>mv ~/.vim/.vimrc ~/.vimrc</code>
+Once cloned and a <code>.vim</code> directory has been created, run the following command to link the <code>.vimrc</code> file to the home directory:
 
-Then to keep a symlink:
-
-<code>ln -s ~/.vimrc ~/.vim/.vimrc</code>
+<code>ln -s ~/.vim/.vimrc ~/.vimrc</code>
