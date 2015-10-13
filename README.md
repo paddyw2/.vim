@@ -12,6 +12,6 @@ If running Linux, the number of supported colours may need to be updated. To do 
 
 <code>sudo apt-get install ncurses-term</code>
 
-and then add this line to the <code>~./bashrc</code> file:
+and then add this line to the <code>~/.bashrc</code> file:
 
 <code>export TERM=xterm-256color</code>
