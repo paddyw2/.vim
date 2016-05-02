@@ -22,8 +22,9 @@ let colors_name = "wombat"
 
 " General colors
 
-
-
+" sign column fix for syntastic
+"hi! link SignColumn LineNr
+hi SignColumn ctermbg=none
 
 hi Normal ctermfg=252 ctermbg=234 cterm=none guifg=#e3e0d7 guibg=#242424 gui=none
 hi Cursor ctermfg=234 ctermbg=228 cterm=none guifg=#242424 guibg=#eae788 gui=none
