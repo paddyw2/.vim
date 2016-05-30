@@ -9,6 +9,15 @@ set noerrorbells
 set vb t_vb=
 "set background=dark
 
+" code completion
+imap ff <C-P>
+
+" save shortcut, ctrl-s
+map ss :w<CR>
+map sa :wa<CR>
+map qq :wq<CR>
+map qe :q!<CR>
+
 " code to set custom background color
 " different to terminal
 highlight NonText ctermbg=234 ctermfg=999
@@ -40,41 +49,42 @@ execute pathogen#infect()
 :map :dir :CtrlPMRUFiles
 
 " Syntastic shortcut
-:map :checker :SyntasticCheck
-:map :reset :SyntasticReset
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_error_symbol ="\ue0b0"  
-"✖"
-"let g:syntastic_error_symbol = '❌'
-"let g:syntastic_error_symbol = "\u2603"
-"let g:syntastic_style_error_symbol = '⁉️'
-"let g:syntastic_warning_symbol = '⚠️'
-"let g:syntastic_style_warning_symbol = '💩'
-
-highlight SyntasticErrorSign ctermfg=red ctermbg=red
-
-"highlight link SyntasticErrorSign SignColumn
-"highlight link SyntasticWarningSign SignColumn
-"highlight link SyntasticStyleErrorSign SignColumn
-"highlight link SyntasticStyleWarningSign SignColumn
-
+":map :checker :SyntasticCheck
+":map :reset :SyntasticReset
+"
+"" syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1let g:syntastic_check_on_wq = 1
+"let g:syntastic_check_on_w = 1
+"
+"
+"let g:syntastic_error_symbol ="\ue0b0"  
+""✖"
+let g:syntastic_error_symbol = '❌'
+""let g:syntastic_error_symbol = "\u2603"
+""let g:syntastic_style_error_symbol = '⁉️'
+""let g:syntastic_warning_symbol = '⚠️'
+""let g:syntastic_style_warning_symbol = '💩'
+"
+highlight SyntasticErrorSign ctermfg=black ctermbg=black
+"
+""highlight link SyntasticErrorSign SignColumn
+""highlight link SyntasticWarningSign SignColumn
+""highlight link SyntasticStyleErrorSign SignColumn
+""highlight link SyntasticStyleWarningSign SignColumn
+"
 "let g:syntastic_java_checker = 'javac'
 let g:syntastic_java_javac_classpath = '/Users/Paddy/.java-checker'
-
-" java auto complete
-
-:setlocal omnifunc=javacomplete#Complete 
-:setlocal completefunc=javacomplete#CompleteParamsInfo
+"
+"" java auto complete
+"
+":setlocal omnifunc=javacomplete#Complete 
+":setlocal completefunc=javacomplete#CompleteParamsInfo
 
 " everything below is for
 " powerline setup
