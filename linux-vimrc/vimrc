@@ -1,4 +1,4 @@
-" linux specific vimrc
+" linu specific vimrc
 " includes various settings
 " to avoid breakage
 "
@@ -135,9 +135,9 @@ function! ChangeStatuslineColor()
 endfunction
 
 " custom commands to force quicker color change
-"map <silent> <ESC> :call ChangeStatuslineColor()<CR>
-"map <script> v v<SID>ChangeStatuslineColor
-"au InsertLeave * call ChangeStatuslineColor()
+vmap <script> <ESC> <ESC><SID>ChangeStatuslineColor
+map <script> v v<SID>ChangeStatuslineColor
+au InsertLeave * call ChangeStatuslineColor()
 "
 " Find out current buffer's size and output it.
 function! FileSize()

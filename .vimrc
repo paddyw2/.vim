@@ -119,69 +119,12 @@ highlight SyntasticErrorSign ctermfg=black ctermbg=black
 "
 "let g:syntastic_java_checker = 'javac'
 let g:syntastic_java_javac_classpath = '/Users/Paddy/.java-checker'
-"
-"" java auto complete
-"
-":setlocal omnifunc=javacomplete#Complete 
-":setlocal completefunc=javacomplete#CompleteParamsInfo
-
-" everything below is for
-" powerline setup
-
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-"
-"let g:Powerline_symbols = 'fancy'
-"set encoding=utf-8
-"set t_Co=256
-"set fillchars+=stl:\ ,stlnc:\
-"set termencoding=utf-8
-"
-""" Always show statusline
-"set laststatus=2
-""
-""" Use 256 colours (Use this setting only if your terminal supports 256
-""" colours)
-" set t_Co=256
-
-
-
+tf-8
 
 "" personal status line
 set laststatus=2
 
-" timpopes set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
-"
-"set statusline=   " clear the statusline for when vimrc is reloaded
-"set statusline+=%-3.3n\                      " buer number
-"set statusline+=%f\                          " file name
-"set statusline+=%h%m%r%w                     " flags
-"set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
-"set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
-"set statusline+=%{&fileformat}]              " file format
-"set statusline+=%{PrintMode()}                    " file format
-"set statusline+=%=                           " right align
-"set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}\  " highlight
-"set statusline+=%b,0x%-8B\                   " current char
-"set statusline+=%-14.(%l,%c%V%)\ %<%P        " onlyset
-
-"function! PrintMode()
-"  if mode() == 'v'
-"    hi StatusLine term=reverse ctermfg=0 ctermbg=90
-"    return  Visual"
-"  elseif mode() == i"
-"    hi StatusLine term=reverse ctermfg=0 ctermbg=75
-"    return  Insert"
-"  else
-"    exe 'hi! statusLine ctermfg=230 ctermbg=238'
-"    return  Normal"
-"  endif
-"endfunction
-"
-"nnoremap <script> v v<SID>PrintMode
-"nnoremap <script> <ESC> <ESC><SID>PrintMode
-
+set statusline+=%b,0x%-8B\                   " current char
 
 " Statusline
 
@@ -221,7 +164,7 @@ function! ChangeStatuslineColor()
 endfunction
 
 " custom commands to force quicker color change
-map <silent> <ESC> :call ChangeStatuslineColor()<CR>
+vmap <script> <ESC> <ESC><SID>ChangeStatuslineColor
 map <script> v v<SID>ChangeStatuslineColor
 au InsertLeave * call ChangeStatuslineColor()
 
