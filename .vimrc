@@ -11,10 +11,11 @@ set splitright
 
 " NERDTree shortcut
 map nd :NERDTree<CR>
+:map :spl :set spell spelllang=en_us
 
 " option to auto load NERDTree
 " au VimEnter *  NERDTree
-for prefix in ['n', 'v', 'i']
+for prefix in ['n', 'v']
     for key in ['<Up>', '<Down>', '<Left>', '<Right>']
         exe prefix . "noremap " . key . " <Nop>"
     endfor
@@ -119,7 +120,6 @@ highlight SyntasticErrorSign ctermfg=black ctermbg=black
 "
 "let g:syntastic_java_checker = 'javac'
 let g:syntastic_java_javac_classpath = '/Users/Paddy/.java-checker'
-tf-8
 
 "" personal status line
 set laststatus=2
