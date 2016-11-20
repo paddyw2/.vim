@@ -9,6 +9,7 @@ hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
 set splitright
 
+
 " NERDTree shortcut
 map nd :NERDTree<CR>
 :map :spl :set spell spelllang=en_us
@@ -20,6 +21,10 @@ for prefix in ['n', 'v']
         exe prefix . "noremap " . key . " <Nop>"
     endfor
 endfor
+
+" customize tab bar colors
+hi TabLineFill ctermfg=234
+
 
 if has('gui_running')
     set guifont=Knack\ Regular\ Nerd\ Font\ Plus\ Font\ Awesome\ Mono:h12
@@ -38,6 +43,7 @@ set list
 set listchars=tab:>-
 " set tab scheme
 " to set tab spaces
+filetype plugin on
 filetype plugin indent on
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -52,7 +58,7 @@ autocmd FileType vim setlocal tabstop=2 shiftwidth=2
 autocmd FileType python setlocal tabstop=2 shiftwidth=2
 
 " code completion
-imap ff <C-P>
+imap cc <C-P>
 
 " save shortcuts
 map ss :w<CR>
@@ -76,6 +82,7 @@ set backspace=indent,eol,start
 vmap jk <ESC>
 inoremap jk <ESC>
 
+"""""""""""""""""""" Plugins
 " pathogen execute
 execute pathogen#infect()
 
@@ -88,40 +95,21 @@ set rtp+=~/.fzf
 :map :fzf :FZF
 map fdf :FZF<CR>
 
-" Syntastic shortcut
-":map :checker :SyntasticCheck
-":map :reset :SyntasticReset
-"
-"" syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1let g:syntastic_check_on_wq = 1
-"let g:syntastic_check_on_w = 1
-"
-"
-"let g:syntastic_error_symbol ="\ue0b0"  
+" for built in autocomplete
+" python
+" let g:pydiction_location = '/Users/paddy/.vim/bundle/pydiction/complete-dict'
+
 ""✖"
-let g:syntastic_error_symbol = '❌'
+" let g:syntastic_error_symbol = '❌'
 ""let g:syntastic_error_symbol = "\u2603"
 ""let g:syntastic_style_error_symbol = '⁉️'
 ""let g:syntastic_warning_symbol = '⚠️'
 ""let g:syntastic_style_warning_symbol = '💩'
 "
-highlight SyntasticErrorSign ctermfg=black ctermbg=black
-"
-""highlight link SyntasticErrorSign SignColumn
-""highlight link SyntasticWarningSign SignColumn
-""highlight link SyntasticStyleErrorSign SignColumn
-""highlight link SyntasticStyleWarningSign SignColumn
-"
-"let g:syntastic_java_checker = 'javac'
-let g:syntastic_java_javac_classpath = '/Users/Paddy/.java-checker'
+" highlight SyntasticErrorSign ctermfg=black ctermbg=black
+" let g:syntastic_java_javac_classpath = '/Users/Paddy/.java-checker'
 
-"" personal status line
+"""""""""""""" personal status line
 set laststatus=2
 
 set statusline+=%b,0x%-8B\                   " current char
@@ -214,7 +202,7 @@ set statusline+=%8*\ [%n]                                " buffernr
 set statusline+=%8*\ %{GitInfo()}                        " Git Branch name
 set statusline+=%8*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}             " Syntastic errors
+"set statusline+=%{SyntasticStatuslineFlag()}             " Syntastic errors
 set statusline+=%*
 set statusline+=%9*\ %=                                  " Space
 set statusline+=%8*\ %y\                                 " FileType
