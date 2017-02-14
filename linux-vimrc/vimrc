@@ -60,7 +60,7 @@ autocmd FileType vim setlocal tabstop=2 shiftwidth=2
 autocmd FileType python setlocal tabstop=2 shiftwidth=2
 
 " code completion
-imap cc <C-P>
+imap vv <C-P>
 
 " save shortcuts
 map ss :w<CR>
