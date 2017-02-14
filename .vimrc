@@ -1,9 +1,9 @@
-set encoding=utf8
-set t_Co=256
-syntax on
+syntax enable
 "colorscheme wombat
 "colorscheme twilight256
-colorscheme dracula
+"colorscheme dracula
+set background=dark
+colorscheme solarized
 " change highlight color for dracula
 hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
@@ -58,7 +58,7 @@ autocmd FileType vim setlocal tabstop=2 shiftwidth=2
 autocmd FileType python setlocal tabstop=2 shiftwidth=2
 
 " code completion
-imap cc <C-P>
+imap vv <C-P>
 
 " save shortcuts
 map ss :w<CR>
@@ -68,7 +68,7 @@ map qe :q!<CR>
 
 " code to set custom background color
 " different to terminal
-highlight NonText ctermbg=234 ctermfg=999
+"highlight NonText ctermbg=234 ctermfg=999
 
 " for dracula: code to set background transparent
 "highlight NonText ctermbg=none
@@ -137,10 +137,13 @@ let g:currentmode={
     \ '!'  : 'Shell ',
   \ 't'  : 'Terminal '}
 
+
+" set custom color for nomal mode on startup
+exe 'hi! StatusLine ctermfg=249'
 " Automatically change the statusline color depending on mode
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008'
+    exe 'hi! StatusLine ctermfg=249'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
     exe 'hi! StatusLine ctermfg=005'
   elseif (mode() ==# 'i')
