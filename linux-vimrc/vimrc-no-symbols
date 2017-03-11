@@ -6,9 +6,9 @@ set nocompatible
 set encoding=utf8
 set t_Co=256
 syntax on
-"colorscheme wombat
+colorscheme wombat
 "colorscheme twilight256
-colorscheme dracula
+"colorscheme dracula
 " change highlight color for dracula
 hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
