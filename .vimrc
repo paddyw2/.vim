@@ -1,18 +1,31 @@
-syntax enable
+set encoding=utf8
+set t_Co=256
+syntax on
+" FAVOURITE COLORSCHEMES
 "colorscheme wombat
+colorscheme gruvbox
 "colorscheme twilight256
 "colorscheme dracula
-set background=dark
-colorscheme solarized
 " change highlight color for dracula
 hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
 set splitright
 
-
+" FOR SOLARIZED
+" First, set terminal theme to
+" solarized
+" Then enable:
+" or light
+" then add the following
+" below pathogen
+" colorscheme solarized
+" END SOLARIZED
+set background=dark
+set number
+set relativenumber
 " NERDTree shortcut
 map nd :NERDTree<CR>
-:map :spl :set spell spelllang=en_us
+map :spl :set spell spelllang=en_us
 
 " option to auto load NERDTree
 " au VimEnter *  NERDTree
@@ -23,7 +36,7 @@ for prefix in ['n', 'v']
 endfor
 
 " customize tab bar colors
-hi TabLineFill ctermfg=234
+"hi TabLineFill ctermfg=234
 
 
 if has('gui_running')
@@ -58,7 +71,7 @@ autocmd FileType vim setlocal tabstop=2 shiftwidth=2
 autocmd FileType python setlocal tabstop=2 shiftwidth=2
 
 " code completion
-imap vv <C-P>
+imap vv  <C-P>
 
 " save shortcuts
 map ss :w<CR>
@@ -68,7 +81,7 @@ map qe :q!<CR>
 
 " code to set custom background color
 " different to terminal
-"highlight NonText ctermbg=234 ctermfg=999
+highlight NonText ctermbg=234 ctermfg=999
 
 " for dracula: code to set background transparent
 "highlight NonText ctermbg=none
@@ -83,8 +96,6 @@ vmap jk <ESC>
 inoremap jk <ESC>
 
 """""""""""""""""""" Plugins
-" pathogen execute
-execute pathogen#infect()
 
 " CtrlP shortcut
 :map :dir :CtrlPMRUFiles
@@ -137,13 +148,10 @@ let g:currentmode={
     \ '!'  : 'Shell ',
   \ 't'  : 'Terminal '}
 
-
-" set custom color for nomal mode on startup
-exe 'hi! StatusLine ctermfg=249'
 " Automatically change the statusline color depending on mode
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=249'
+    exe 'hi! StatusLine ctermfg=008'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
     exe 'hi! StatusLine ctermfg=005'
   elseif (mode() ==# 'i')
@@ -189,20 +197,13 @@ function! ReadOnly()
     return ''
 endfunction
 
-function! GitInfo()
-  let git = fugitive#head()
-  if git != ''
-    return ' '.fugitive#head()
-  else
-    return ''
-endfunction
 
 set laststatus=2
 set statusline=
 set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
 set statusline+=%8*\ [%n]                                " buffernr
-set statusline+=%8*\ %{GitInfo()}                        " Git Branch name
+set statusline+=%8*\ [nogit]                        " Git Branch name
 set statusline+=%8*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
 set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}             " Syntastic errors
