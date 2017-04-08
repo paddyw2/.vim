@@ -8,6 +8,7 @@
 
 " Supporting code -------------------------------------------------------------
 " Initialisation: {{{
+"
 
 if version > 580
   hi clear
