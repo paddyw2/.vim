@@ -1,3 +1,4 @@
+
 set encoding=utf8
 set t_Co=256
 syntax on
@@ -35,18 +36,9 @@ for prefix in ['n', 'v']
     endfor
 endfor
 
-" customize tab bar colors
-"hi TabLineFill ctermfg=234
-
-
-if has('gui_running')
-    set guifont=Knack\ Regular\ Nerd\ Font\ Plus\ Font\ Awesome\ Mono:h12
-    colorscheme material-theme
-endif
 set number
 set noerrorbells
 set vb t_vb=
-"set background=dark
 
 " set key delay timeout
 set timeoutlen=400 ttimeoutlen=0
@@ -106,24 +98,52 @@ set rtp+=~/.fzf
 :map :fzf :FZF
 map fdf :FZF<CR>
 
-" for built in autocomplete
-" python
-" let g:pydiction_location = '/Users/paddy/.vim/bundle/pydiction/complete-dict'
 
-""✖"
-" let g:syntastic_error_symbol = '❌'
-""let g:syntastic_error_symbol = "\u2603"
-""let g:syntastic_style_error_symbol = '⁉️'
-""let g:syntastic_warning_symbol = '⚠️'
-""let g:syntastic_style_warning_symbol = '💩'
-"
-" highlight SyntasticErrorSign ctermfg=black ctermbg=black
-" let g:syntastic_java_javac_classpath = '/Users/Paddy/.java-checker'
+" custom tab bar function to show
+" buffers instead of tabs
+" ref: http://vimdoc.sourceforge.net/htmldoc/tabpage.html
+function! MyTabLine()
+  let buflist = filter(range(1,bufnr('$')),'buflisted(v:val) && "quickfix" !=? getbufvar(v:val, "&buftype")')
+  let s = 'Buffers  '
+  for i in buflist
+    " select the highlighting
+    if i == bufnr('%')
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
 
-"""""""""""""" personal status line
-set laststatus=2
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T'
 
-set statusline+=%b,0x%-8B\                   " current char
+    " the label is made by MyTabLabel()
+    let s .= ' ' . i . '. ' . fnamemodify(bufname(i) , ':f') . ' '
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+    let s .= '%=' . strftime('%k:%M') . ' | ' . '%#TabLine#%999Xbuffers'
+
+  return s
+endfunction
+
+" enable tab bar
+set showtabline=2
+
+" set tab bar
+set tabline=%!MyTabLine()
+
+" refresh tab bar to keep time
+" current
+autocmd CursorHold * call Timer()
+function! Timer()
+  call feedkeys("f\e")
+  set tabline=%!MyTabLine()              
+endfunction
+
+
 
 " Statusline
 
