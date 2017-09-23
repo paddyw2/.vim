@@ -1,43 +1,35 @@
-
 set encoding=utf8
 set t_Co=256
 syntax on
+set number
+set relativenumber
 
 " FAVOURITE COLORSCHEMES
 "colorscheme wombat
 colorscheme gruvbox
 "colorscheme twilight256
 "colorscheme dracula
+
 " change highlight color for dracula
-hi Visual ctermfg=248
+"hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
 set splitright
 
-" FOR SOLARIZED
-" First, set terminal theme to
-" solarized
-" Then enable:
-" or light
-" then add the following
-" below pathogen
-" colorscheme solarized
-" END SOLARIZED
+" to remap esc key
+vmap jk <ESC>
+inoremap jk <ESC>
+
 set background=dark
-set number
-set relativenumber
-" NERDTree shortcut
-map nd :NERDTree<CR>
+
+" spell check shortcut
 map :spl :set spell spelllang=en_us
 
-" option to auto load NERDTree
-" au VimEnter *  NERDTree
 for prefix in ['n', 'v']
     for key in ['<Up>', '<Down>', '<Left>', '<Right>']
         exe prefix . "noremap " . key . " <Nop>"
     endfor
 endfor
 
-set number
 set noerrorbells
 set vb t_vb=
 
@@ -58,13 +50,24 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
-" change indent for ruby
+" change indent for ruby, python, and vim
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2
 autocmd FileType vim setlocal tabstop=2 shiftwidth=2
 autocmd FileType python setlocal tabstop=2 shiftwidth=2
 
 " code completion
-imap vv  <C-P>
+imap vv  <C-n>
+
+autocmd FileType text imap vv <C-x><C-k>
+autocmd FileType markdown imap vv <C-x><C-k>
+
+inoremap <expr> j pumvisible() ? "\<C-N>" : "j"
+inoremap <expr> k pumvisible() ? "\<C-P>" : "k"
+set dictionary+=~/.vim/dict/google-words.txt
+
+nmap bp :bp<CR>
+nmap bn :bn<CR>
+" buffer navigation
 
 " save shortcuts
 map ss :w<CR>
@@ -84,15 +87,13 @@ highlight NonText ctermbg=234 ctermfg=999
 set backspace=indent,eol,start
 
 
-" to remap esc key to handy shortcut  
-vmap jk <ESC>
-inoremap jk <ESC>
 
+""" FZF NOT CURRENTLY USED
 " FZF install and shortcut
-set rtp+=~/.fzf
+"set rtp+=~/.fzf
 
-:map :fzf :FZF
-map fdf :FZF<CR>
+":map :fzf :FZF
+"map fdf :FZF<CR>
 
 
 """" BUFFER TAB CUSTOMIZATION """"
@@ -128,7 +129,7 @@ function! MyTabLine()
   let s .= '%#TabLineFill#%T'
 
   " right-align the buffer text and clock 
-  let s .= '%=' . strftime('%k:%M') . ' ' . '%#TabLineEnd#%999X buffers '
+  let s .= '%=' . '%#TabLineTime#%999X ' . strftime('%k:%M') . ' ' . '%#TabLineEnd#%999X buffers '
 
   " return completed buffer bar
   return s
@@ -149,7 +150,46 @@ function! TabStatusThemeSimple()
   hi TabLineFill cterm=none ctermfg=223 ctermbg=237
   hi TabLine cterm=none ctermfg=223 ctermbg=237
   hi TabLineSel cterm=bold ctermfg=236 ctermbg=214
+  hi TabLineTime cterm=none ctermfg=223 ctermbg=237
   hi TabLineEnd cterm=bold ctermfg=0 ctermbg=175
+endfunction
+
+function! TabStatusThemeMinimal()
+  " status line
+  let g:statusnormal = 008
+  let g:statusvisual = 005
+  let g:statusinsert = 039
+  let g:statusother = 008
+  exe 'hi! StatusLine ctermfg='.g:statusnormal
+  hi User1 ctermbg=240
+  " buffer tab
+  hi TabLineFill cterm=none ctermfg=236 ctermbg=237
+  hi TabLine cterm=none ctermfg=244 ctermbg=237
+  hi TabLineSel cterm=bold ctermfg=236 ctermbg=008
+  hi TabLineTime cterm=none ctermfg=236 ctermbg=240
+  hi TabLineEnd cterm=bold ctermfg=0 ctermbg=175
+endfunction
+
+
+function! TabStatusThemeGruv()
+  " status line
+  let g:statusnormal = 240
+  let g:statusnormalbg = 0
+  let g:statusvisual = 175
+  let g:statusvisualbg = 0
+  let g:statusinsert = 109
+  let g:statusinsertbg = 0
+  let g:statusother = 008
+  let g:statusotherbg = 0
+
+  exe 'hi! StatusLine ctermfg='.g:statusnormal.' ctermbg='.g:statusnormalbg
+  hi User1 ctermbg=242 ctermfg=235
+  " buffer tab
+  hi TabLineFill cterm=none ctermfg=236 ctermbg=237
+  hi TabLine cterm=none ctermfg=235 ctermbg=240
+  hi TabLineSel cterm=bold ctermfg=235 ctermbg=109
+  hi TabLineTime cterm=none ctermfg=235 ctermbg=241
+  hi TabLineEnd cterm=bold ctermfg=235 ctermbg=108
 endfunction
 
 """" Sets up Tab Bar parameters """"
@@ -161,7 +201,7 @@ function! InitTabBar()
     set tabline=%!MyTabLine()
 
     " set tab bar theme
-    call TabStatusThemeSimple()
+    call TabStatusThemeGruv()
 
     " refresh tab bar to keep time
     " current
@@ -193,7 +233,7 @@ let g:currentmode={
     \ 'no' : 'N·Operator Pending ',
     \ 'v'  : 'VISUAL ',
     \ 'V'  : 'V·Line ',
-    \ '^V' : 'V·Block ',
+    \ '' : 'V·Block ',
     \ 's'  : 'Select ',
     \ 'S'  : 'S·Line ',
     \ '^S' : 'S·Block ',
@@ -214,13 +254,13 @@ let g:currentmode={
 " Automatically change the statusline color depending on mode
 function! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg='.g:statusnormal
-  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-    exe 'hi! StatusLine ctermfg='.g:statusvisual
+    exe 'hi! StatusLine ctermfg='.g:statusnormal.' ctermbg='.g:statusnormalbg
+  elseif (mode() =~# '\v(v|V)' || mode() =~# '\v(v|)' || get(g:currentmode, mode(), '') ==# 't')
+    exe 'hi! StatusLine ctermfg='.g:statusvisual.' ctermbg='.g:statusvisualbg
   elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg='.g:statusinsert
+    exe 'hi! StatusLine ctermfg='.g:statusinsert.' ctermbg='.g:statusinsertbg
   else
-    exe 'hi! StatusLine ctermfg=006'.g:statusother
+    exe 'hi! StatusLine ctermfg='.g:statusother.' ctermbg='.g:statusotherbg
   endif
   return ''
 endfunction
