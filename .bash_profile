@@ -71,70 +71,7 @@ eval $(/usr/libexec/path_helper -s)
 
 ## for prompt
 # prompt
-export PS1="[\w] \`parse_git_branch\` \n\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;225m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;86m\]➜\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\] "
 
-# get current branch in git repo
-function parse_git_branch() {
-    BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-    if [ ! "${BRANCH}" == "" ]
-    then
-        STAT=`parse_git_dirty`
-        echo "➜ [$(print_blue)${BRANCH}${STAT}]"
-    else
-        echo ""
-    fi
-}
-#✘ ✚ + ✔
-# get current status of git repo
-function parse_git_dirty {
-    status=`git status 2>&1 | tee`
-    dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-    untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-    ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$!!"`
-    newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-    renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-    deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
-    bits=''
-    if [ "${renamed}" == "0" ]; then
-        bits="renamed${bits}"
-    fi
-    if [ "${ahead}" == "0" ]; then
-        bits="ahead${bits}"
-    fi
-    if [ "${newfile}" == "0" ]; then
-        bits="$(print_green)++$(print_normal)${bits}"
-    fi
-    if [ "${untracked}" == "0" ]; then
-        bits="$(print_green)+$(print_normal)${bits}"
-    fi
-    if [ "${deleted}" == "0" ]; then
-        bits="$(print_red)✘$(print_normal)${bits}"
-    fi
-    if [ "${dirty}" == "0" ]; then
-        bits="dirrty${bits}"
-    fi
-    if [ ! "${bits}" == "" ]; then
-        echo " ${bits}"
-    else
-        echo " $(print_green)✓$(print_normal)"
-    fi
-}
-
-print_green() {
-    printf "\033[38;5;86m"
-}
-
-print_red() {
-    printf "\033[38;5;167m"
-}
-
-print_blue() {
-    printf "\033[38;5;75m"
-}
-
-print_normal() {
-    printf "$(tput sgr0)"
-}
 export PATH=$PATH:~/.nexustools
 export PATH="/usr/local/opt/qt/bin:$PATH"
 
