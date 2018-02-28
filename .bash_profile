@@ -69,11 +69,11 @@ export SDKMAN_DIR="/Users/Paddy/.sdkman"
 [[ -s "/Users/Paddy/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/Paddy/.sdkman/bin/sdkman-init.sh"
 eval $(/usr/libexec/path_helper -s)
 
-## for prompt
-# prompt
 
 export PATH=$PATH:~/.nexustools
 export PATH="/usr/local/opt/qt/bin:$PATH"
+
+## for prompt
 
 function get_branch() {
     branch=`git status 2>&1 | tee | grep "On branch" | cut -d ' ' -f3`
@@ -86,10 +86,10 @@ function get_branch() {
 
 function get_pwd() {
     preswd=`pwd |rev | cut -d '/' -f1 | rev`
-    if [ $preswd == "paddy" ]; then
+    if [ "$preswd" == "paddy" ]; then
         printf "~"
     else
-        printf $preswd
+        printf "$preswd"
     fi
 }
 
