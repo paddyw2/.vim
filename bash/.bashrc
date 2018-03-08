@@ -25,7 +25,7 @@ function get_branch() {
 
 function get_pwd() {
     preswd=`pwd |rev | cut -d '/' -f1 | rev`
-    if [ "$preswd" == "paddy" ]; then
+    if [ "$preswd" == "$USER" ]; then
         printf "~"
     else
         printf "$preswd"
