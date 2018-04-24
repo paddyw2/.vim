@@ -4,6 +4,9 @@ syntax on
 set number
 set relativenumber
 
+" cron compatibility
+set backupskip=/tmp/*,/private/tmp/*"
+
 " FAVOURITE COLORSCHEMES
 "colorscheme wombat
 colorscheme gruvbox
@@ -23,6 +26,9 @@ set background=dark
 
 " spell check shortcut
 map :spl :set spell spelllang=en_us
+map :splr :hi SpellBad ctermfg=218 <bar> ::hi SpellLocal ctermfg=218 <bar> set spell spelllang=en_us
+map :spls :set nospell
+
 
 for prefix in ['n', 'v']
     for key in ['<Up>', '<Down>', '<Left>', '<Right>']
@@ -50,10 +56,16 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
+" set pug filetype
+au BufNewFile,BufRead *.pug set filetype=pug
+au BufNewFile,BufRead *.ejs set filetype=html
+
 " change indent for ruby, python, and vim
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2
+autocmd FileType html setlocal tabstop=2 shiftwidth=2
 autocmd FileType vim setlocal tabstop=2 shiftwidth=2
 autocmd FileType python setlocal tabstop=2 shiftwidth=2
+autocmd FileType pug setlocal tabstop=2 shiftwidth=2
 
 " code completion
 imap vv  <C-n>
@@ -63,7 +75,7 @@ autocmd FileType markdown imap vv <C-x><C-k>
 
 inoremap <expr> j pumvisible() ? "\<C-N>" : "j"
 inoremap <expr> k pumvisible() ? "\<C-P>" : "k"
-set dictionary+=~/.vim/dict/google-words.txt
+"set dictionary+=~/.vim/dict/google-words.txt
 
 nmap bp :bp<CR>
 nmap bn :bn<CR>
