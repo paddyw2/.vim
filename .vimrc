@@ -7,15 +7,12 @@ set relativenumber
 " cron compatibility
 set backupskip=/tmp/*,/private/tmp/*"
 
-" FAVOURITE COLORSCHEMES
-"colorscheme wombat
-colorscheme gruvbox
-"colorscheme twilight256
-"colorscheme dracula
 
 " change highlight color for dracula
 "hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
+
+tmap kj <C-w>N
 set splitright
 
 " to remap esc key
@@ -23,6 +20,15 @@ vmap jk <ESC>
 inoremap jk <ESC>
 
 set background=dark
+
+" file explorerlet
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+"nmap ff :Vexplore<CR>
 
 " spell check shortcut
 map :spl :set spell spelllang=en_us
@@ -64,7 +70,9 @@ au BufNewFile,BufRead *.ejs set filetype=html
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2
 autocmd FileType html setlocal tabstop=2 shiftwidth=2
 autocmd FileType vim setlocal tabstop=2 shiftwidth=2
-autocmd FileType python setlocal tabstop=2 shiftwidth=2
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
+autocmd FileType json setlocal tabstop=2 shiftwidth=2
+"autocmd FileType python setlocal tabstop=2 shiftwidth=2
 autocmd FileType pug setlocal tabstop=2 shiftwidth=2
 
 " code completion
@@ -102,7 +110,10 @@ set backspace=indent,eol,start
 
 """ FZF NOT CURRENTLY USED
 " FZF install and shortcut
-"set rtp+=~/.fzf
+set rtp+=~/.fzf
+map <silent> fzf :call fzf#run({"sink":"e", "down": "50%"})<CR>
+map <silent> ffa :call fzf#run({"dir": "~/", "sink":"e", "down": "50%"})<CR>
+map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'v:val . " " . bufname(v:val)'), "sink":"e", "down": "50%"})<CR>
 
 ":map :fzf :FZF
 "map fdf :FZF<CR>
@@ -328,3 +339,15 @@ set statusline+=%9*\ %y\                                 " FileType
 set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
 set statusline+=%1*\ %-3(%{FileSize()}%)                 " File size
 set statusline+=%0*\ %3p%%\ \ %l:\ %3c\                 " Rownumber/total (%)
+
+
+" FAVOURITE COLORSCHEMES
+"colorscheme wombat
+"colorscheme gruvbox
+"colorscheme twilight256
+"colorscheme dracula
+set background=dark
+"colorscheme palenight
+colorscheme onedark
+"colorscheme nord
+
