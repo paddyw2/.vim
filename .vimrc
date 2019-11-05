@@ -11,7 +11,7 @@ set backupskip=/tmp/*,/private/tmp/*"
 " change highlight color for dracula
 "hi Visual ctermfg=248
 " set splits on right side, mainly for NERDTree
-
+let mapleader=" "
 tmap kj <C-w>N
 set splitright
 
@@ -110,7 +110,7 @@ set backspace=indent,eol,start
 
 """ FZF NOT CURRENTLY USED
 " FZF install and shortcut
-set rtp+=~/.fzf
+"set rtp+=~/.fzf
 map <silent> fzf :call fzf#run({"sink":"e", "down": "50%"})<CR>
 map <silent> ffa :call fzf#run({"dir": "~/", "sink":"e", "down": "50%"})<CR>
 map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'v:val . " " . bufname(v:val)'), "sink":"e", "down": "50%"})<CR>
@@ -350,4 +350,42 @@ set background=dark
 "colorscheme palenight
 colorscheme onedark
 "colorscheme nord
+"set runtimepath^=~/.vim/bundle/*
 
+call plug#begin()
+  Plug 'dense-analysis/ale'
+  "Plug 'ycm-core/YouCompleteMe'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'ternjs/tern_for_vim'
+call plug#end()
+
+"" YCM config
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_auto_trigger=0
+""let g:syntastic_error_symbol= "="
+""let g:syntastic_warning_symbol= "="
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+"" AIRLINE config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='bubblegum'
+
+"" ALE config 
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_enter = 0
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+  \ }
+
+let g:ale_linters = {
+  \ 'haskell': ['hlint', 'hdevtools', 'hfmt'],
+  \ 'python': ['mypy'],
+  \ 'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck', 'xo'],
+  \ 'javascript': ['eslint', 'ecs', 'flow', 'flow_ls', 'jscs', 'jshint', 'standard', 'tsserver', 'xo'],
+  \ 'cs': ['csc', 'mcs', 'mcsc']
+  \ }
+let g:ale_sign_error = '➜'
+let g:ale_sign_warning = '➜'
