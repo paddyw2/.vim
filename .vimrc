@@ -7,6 +7,9 @@ set relativenumber
 " cron compatibility
 set backupskip=/tmp/*,/private/tmp/*"
 
+" ctags
+set tags+=.git/tags
+nmap <silent> tt :!ctags -R .<CR>
 
 " change highlight color for dracula
 "hi Visual ctermfg=248
@@ -29,6 +32,10 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 
 "nmap ff :Vexplore<CR>
+nmap <silent> bd :bd<cr>
+nmap <silent> bn :bn<cr>
+nmap <silent> bp :bp<cr>
+
 
 " spell check shortcut
 map :spl :set spell spelllang=en_us
@@ -360,6 +367,8 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'ternjs/tern_for_vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 "" YCM config
