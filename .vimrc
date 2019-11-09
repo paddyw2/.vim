@@ -354,7 +354,7 @@ colorscheme onedark
 
 call plug#begin()
   Plug 'dense-analysis/ale'
-  "Plug 'ycm-core/YouCompleteMe'
+  Plug 'ycm-core/YouCompleteMe'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -365,8 +365,8 @@ call plug#end()
 "" YCM config
 let g:ycm_enable_diagnostic_signs = 1
 let g:ycm_auto_trigger=0
-""let g:syntastic_error_symbol= "="
-""let g:syntastic_warning_symbol= "="
+let g:syntastic_error_symbol= '➜'
+let g:syntastic_warning_symbol= '➜'
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 "" AIRLINE config
@@ -382,10 +382,10 @@ let g:ale_linters = {
 
 let g:ale_linters = {
   \ 'haskell': ['hlint', 'hdevtools', 'hfmt'],
-  \ 'python': ['mypy'],
+  \ 'python': ['mypy', 'pycodestyle'],
   \ 'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck', 'xo'],
   \ 'javascript': ['eslint', 'ecs', 'flow', 'flow_ls', 'jscs', 'jshint', 'standard', 'tsserver', 'xo'],
-  \ 'cs': ['csc', 'mcs', 'mcsc']
+  \ 'cs': ['csc', 'msc', 'mcsc']
   \ }
 let g:ale_sign_error = '➜'
 let g:ale_sign_warning = '➜'
