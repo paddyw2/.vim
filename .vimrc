@@ -106,8 +106,8 @@ set backspace=indent,eol,start
 "colorscheme dracula
 "colorscheme palenight
 "colorscheme nord
-"colorscheme onedark
-colorscheme seoul256
+colorscheme onedark
+"colorscheme seoul256
 
 
 """ CTAGS
@@ -171,7 +171,7 @@ call plug#begin()
   Plug 'ternjs/tern_for_vim', "{'on': 'EnableIDE'}
   Plug 'tpope/vim-fugitive', "{'on': 'EnableIDE'}
   Plug 'airblade/vim-gitgutter', "{'on': 'EnableIDE'}
-  Plug 'ctrlpvim/ctrlp.vim', "{'on': 'EnableIDE'}
+  Plug 'ctrlpvim/ctrlp.vim', {'on': 'EnableIDE'}
   Plug 'tpope/vim-dispatch', "{'on': 'EnableIDE'}
   Plug 'majutsushi/tagbar', "{'on': 'EnableIDE'}
   Plug 'tpope/vim-eunuch', "{'on': 'EnableIDE'}
@@ -203,8 +203,12 @@ function ToggleGoyo()
     let g:goyo_enabled = 0
     exe 'Goyo!'
     exe 'Limelight!'
+    let g:goyo_enabled = 0
+    exe 'colorscheme '. g:goyo_old_colorscheme
   else
     let g:goyo_enabled = 1
+    let g:goyo_old_colorscheme = g:colors_name
+    colorscheme seoul256
     exe 'Goyo'
     exe 'Limelight'
   endif
