@@ -9,7 +9,7 @@ set backupskip=/tmp/*,/private/tmp/*"
 
 " ctags
 set tags+=.git/tags
-nmap <silent> tt :!ctags -R .<CR>
+nmap <silent> tt :!ctags -R --tag-relative=no -f ./.git/tags .<CR>
 
 " change highlight color for dracula
 "hi Visual ctermfg=248
@@ -24,6 +24,32 @@ inoremap jk <ESC>
 
 set background=dark
 
+autocmd FileType python :call SetupPythonFold()
+
+function SetupPythonFold()
+  " folding
+  set foldmethod=expr
+  set foldclose=all
+  set foldnestmax=2
+  set foldexpr=GetPythonFold(v:lnum)
+endfunction
+
+function GetPythonFold(lnum)
+  let n = a:lnum
+  while n > 0
+    let currline = getline(n)
+    let prevline = getline(n-1)
+    let nextline = getline(n+1)
+    if nextline =~ '^\s*def ' && currline =~ '^\s*$'
+      return '0'
+    elseif prevline =~ '^\s*def '
+      return '1'
+    endif
+    let n -= 1
+  endwhile
+  return '0'
+endfunction
+
 " file explorerlet
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -35,6 +61,9 @@ let g:netrw_winsize = 25
 nmap <silent> bd :bd<cr>
 nmap <silent> bn :bn<cr>
 nmap <silent> bp :bp<cr>
+let g:ctrlp_map = ''
+nmap <c-b> :CtrlPBuffer<cr>
+nmap <c-m> :CtrlPMRU<cr>
 
 
 " spell check shortcut
@@ -369,6 +398,8 @@ call plug#begin()
   Plug 'ternjs/tern_for_vim'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'tpope/vim-dispatch'
 call plug#end()
 
 "" YCM config
