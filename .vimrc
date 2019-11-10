@@ -50,6 +50,15 @@ function GetPythonFold(lnum)
   return '0'
 endfunction
 
+" autoclose brackets
+""inoremap " ""<left>
+""inoremap ' ''<left>
+""inoremap ( ()<left>
+""inoremap [ []<left>
+"inoremap { {}<left>
+"inoremap []<CR> [<CR>]<ESC>ko
+"inoremap {<CR> {<CR>}<ESC>ko
+
 " file explorerlet
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -91,12 +100,18 @@ set listchars=tab:>-
 " to set tab spaces
 filetype plugin on
 filetype plugin indent on
+" default indentation
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
+set autoindent
+set softtabstop=4
+
+"inoremap {<CR> {<CR>}<Esc>ko
+"inoremap { {}<Esc>ba
 
 " set pug filetype
 au BufNewFile,BufRead *.pug set filetype=pug
