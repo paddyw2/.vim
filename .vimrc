@@ -5,7 +5,9 @@ syntax on
 set number
 set relativenumber
 let mapleader=" "
-tmap kj <C-w>N
+if !&diff
+  tmap kj <C-w>N
+endif
 set splitright
 set background=dark
 vmap jk <ESC>
@@ -104,7 +106,8 @@ set backspace=indent,eol,start
 "colorscheme dracula
 "colorscheme palenight
 "colorscheme nord
-colorscheme onedark
+"colorscheme onedark
+colorscheme seoul256
 
 
 """ CTAGS
@@ -113,8 +116,6 @@ nmap <silent> tt :!ctags -R --tag-relative=no -f ./.git/tags .<CR>
 
 
 """ FOLDING
-autocmd FileType python :call SetupPythonFold()
-
 function SetupPythonFold()
   set foldmethod=expr
   set foldclose=all
@@ -145,24 +146,35 @@ endfunction
 command! -nargs=0 EnableIDE call EnableIDE()
 function EnableIDE()
   echom 'Enabling IDE'
+  " enable folding
+  autocmd FileType python :call SetupPythonFold()
+endfunction
+
+command! -nargs=0 EnableGoyo call EnableGoyo()
+function EnableGoyo()
+  echom 'Enabling Goyo'
 endfunction
 
 " define plugins
 call plug#begin()
   " default plugins, loaded on startup
-  Plug 'vim-airline/vim-airline' ", {'on': 'EnableIDE'}
-  Plug 'vim-airline/vim-airline-themes' ", {'on': 'EnableIDE'}
-  Plug 'junegunn/fzf.vim' ", {'on': 'EnableIDE'}
-  " IDE plugins, loaded on EnableIDE
-  Plug 'dense-analysis/ale', {'on': 'EnableIDE'}
-  Plug 'ycm-core/YouCompleteMe', {'on': 'EnableIDE'}
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all', 'on': 'EnableIDE'}
-  Plug 'ternjs/tern_for_vim', {'on': 'EnableIDE'}
-  Plug 'tpope/vim-fugitive', {'on': 'EnableIDE'}
-  Plug 'airblade/vim-gitgutter', {'on': 'EnableIDE'}
-  Plug 'ctrlpvim/ctrlp.vim', {'on': 'EnableIDE'}
-  Plug 'tpope/vim-dispatch', {'on': 'EnableIDE'}
-  Plug 'majutsushi/tagbar', {'on': 'EnableIDE'}
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+  Plug 'junegunn/fzf.vim'
+  " writing plugins, loaded on EnableGoyo
+  Plug 'junegunn/goyo.vim', "{'on': 'EnableGoyo'}
+  Plug 'junegunn/limelight.vim', "{'on': 'EnableGoyo'}
+"  " IDE plugins, loaded on EnableIDE
+  Plug 'dense-analysis/ale', "{'on': 'EnableIDE'}
+  Plug 'ycm-core/YouCompleteMe', "{'on': 'EnableIDE'}
+  Plug 'ternjs/tern_for_vim', "{'on': 'EnableIDE'}
+  Plug 'tpope/vim-fugitive', "{'on': 'EnableIDE'}
+  Plug 'airblade/vim-gitgutter', "{'on': 'EnableIDE'}
+  Plug 'ctrlpvim/ctrlp.vim', "{'on': 'EnableIDE'}
+  Plug 'tpope/vim-dispatch', "{'on': 'EnableIDE'}
+  Plug 'majutsushi/tagbar', "{'on': 'EnableIDE'}
+  Plug 'tpope/vim-eunuch', "{'on': 'EnableIDE'}
 call plug#end()
 
 
@@ -180,6 +192,23 @@ nmap <c-m> :CtrlPMRU<cr>
 
 """ TAGBAR SETTINGS
 nmap tb :TagbarToggle<CR>
+
+
+""" GOYO SETTINGS
+nmap <silent> gyg :call ToggleGoyo()<CR>
+let g:goyo_enabled = 0
+
+function ToggleGoyo()
+  if g:goyo_enabled
+    let g:goyo_enabled = 0
+    exe 'Goyo!'
+    exe 'Limelight!'
+  else
+    let g:goyo_enabled = 1
+    exe 'Goyo'
+    exe 'Limelight'
+  endif
+endfunction
 
 
 """ YOUCOMPLETEME SETTINGS
