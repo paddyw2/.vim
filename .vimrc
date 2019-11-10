@@ -405,14 +405,14 @@ colorscheme onedark
 "set runtimepath^=~/.vim/bundle/*
 command! -nargs=0 EnableIDE call EnableIDE()
 function EnableIDE()
-  echom 'Enabling IDE'
+  "echom 'Enabling IDE'
 endfunction
 
 call plug#begin()
   " default plugins
-  Plug 'vim-airline/vim-airline', {'on': 'EnableIDE'}
-  Plug 'vim-airline/vim-airline-themes', {'on': 'EnableIDE'}
-  Plug 'junegunn/fzf.vim', {'on': 'EnableIDE'}
+  Plug 'vim-airline/vim-airline' ", {'on': 'EnableIDE'}
+  Plug 'vim-airline/vim-airline-themes' ", {'on': 'EnableIDE'}
+  Plug 'junegunn/fzf.vim' ", {'on': 'EnableIDE'}
   " IDE plugins
   Plug 'dense-analysis/ale', {'on': 'EnableIDE'}
   Plug 'ycm-core/YouCompleteMe', {'on': 'EnableIDE'}
@@ -452,3 +452,4 @@ let g:ale_linters = {
   \ }
 let g:ale_sign_error = '➜'
 let g:ale_sign_warning = '➜'
+
