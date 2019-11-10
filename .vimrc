@@ -136,6 +136,7 @@ inoremap <expr> j pumvisible() ? "\<C-N>" : "j"
 inoremap <expr> k pumvisible() ? "\<C-P>" : "k"
 "set dictionary+=~/.vim/dict/google-words.txt
 
+nmap tb :TagbarToggle<CR>
 nmap bp :bp<CR>
 nmap bn :bn<CR>
 " buffer navigation
@@ -402,19 +403,26 @@ set background=dark
 colorscheme onedark
 "colorscheme nord
 "set runtimepath^=~/.vim/bundle/*
+command! -nargs=0 EnableIDE call EnableIDE()
+function EnableIDE()
+  echom 'Enabling IDE'
+endfunction
 
 call plug#begin()
-  Plug 'dense-analysis/ale'
-  Plug 'ycm-core/YouCompleteMe'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'ternjs/tern_for_vim'
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'tpope/vim-dispatch'
+  " default plugins
+  Plug 'vim-airline/vim-airline', {'on': 'EnableIDE'}
+  Plug 'vim-airline/vim-airline-themes', {'on': 'EnableIDE'}
+  Plug 'junegunn/fzf.vim', {'on': 'EnableIDE'}
+  " IDE plugins
+  Plug 'dense-analysis/ale', {'on': 'EnableIDE'}
+  Plug 'ycm-core/YouCompleteMe', {'on': 'EnableIDE'}
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all', 'on': 'EnableIDE'}
+  Plug 'ternjs/tern_for_vim', {'on': 'EnableIDE'}
+  Plug 'tpope/vim-fugitive', {'on': 'EnableIDE'}
+  Plug 'airblade/vim-gitgutter', {'on': 'EnableIDE'}
+  Plug 'ctrlpvim/ctrlp.vim', {'on': 'EnableIDE'}
+  Plug 'tpope/vim-dispatch', {'on': 'EnableIDE'}
+  Plug 'majutsushi/tagbar', {'on': 'EnableIDE'}
 call plug#end()
 
 "" YCM config
