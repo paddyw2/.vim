@@ -1,4 +1,4 @@
-""" GENERAL SETTINGS
+" GENERAL SETTINGS
 set encoding=utf8
 set t_Co=256
 syntax on
@@ -15,7 +15,6 @@ inoremap jk <ESC>
 set noerrorbells
 set vb t_vb=
 set timeoutlen=400 ttimeoutlen=0
-
 
 """ CRONTAB FILE COMPATIBILITY
 set backupskip=/tmp/*,/private/tmp/*"
@@ -143,17 +142,8 @@ endfunction
 
 """ VIM PLUG SETTINGS
 " command to allow heavyweight plugins to be lazy loaded
-command! -nargs=0 EnableIDE call EnableIDE()
-function EnableIDE()
-  echom 'Enabling IDE'
-  " enable folding
-  autocmd FileType python :call SetupPythonFold()
-endfunction
-
-command! -nargs=0 EnableGoyo call EnableGoyo()
-function EnableGoyo()
-  echom 'Enabling Goyo'
-endfunction
+map <silent> <leader>ide <Plug>EnableIDE
+map <silent> <leader>goyo <Plug>EnableGoyo
 
 " define plugins
 call plug#begin()
@@ -163,18 +153,18 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
   Plug 'junegunn/fzf.vim'
   " writing plugins, loaded on EnableGoyo
-  Plug 'junegunn/goyo.vim', "{'on': 'EnableGoyo'}
-  Plug 'junegunn/limelight.vim', "{'on': 'EnableGoyo'}
+  Plug 'junegunn/goyo.vim', {'on': '<Plug>EnableGoyo'}
+  Plug 'junegunn/limelight.vim', {'on': '<Plug>EnableGoyo'}
 "  " IDE plugins, loaded on EnableIDE
-  Plug 'dense-analysis/ale', "{'on': 'EnableIDE'}
-  Plug 'ycm-core/YouCompleteMe', "{'on': 'EnableIDE'}
-  Plug 'ternjs/tern_for_vim', "{'on': 'EnableIDE'}
-  Plug 'tpope/vim-fugitive', "{'on': 'EnableIDE'}
-  Plug 'airblade/vim-gitgutter', "{'on': 'EnableIDE'}
-  Plug 'ctrlpvim/ctrlp.vim', {'on': 'EnableIDE'}
-  Plug 'tpope/vim-dispatch', "{'on': 'EnableIDE'}
-  Plug 'majutsushi/tagbar', "{'on': 'EnableIDE'}
-  Plug 'tpope/vim-eunuch', "{'on': 'EnableIDE'}
+  Plug 'dense-analysis/ale', {'on': '<Plug>EnableIDE'}
+  Plug 'ycm-core/YouCompleteMe', {'on': '<Plug>EnableIDE'}
+  Plug 'ternjs/tern_for_vim', {'on': '<Plug>EnableIDE'}
+  Plug 'tpope/vim-fugitive', {'on': '<Plug>EnableIDE'}
+  Plug 'airblade/vim-gitgutter', {'on': '<Plug>EnableIDE'}
+  Plug 'ctrlpvim/ctrlp.vim', {'on': '<Plug>EnableIDE'}
+  Plug 'tpope/vim-dispatch', {'on': '<Plug>EnableIDE'}
+  Plug 'majutsushi/tagbar', {'on': '<Plug>EnableIDE'}
+  Plug 'tpope/vim-eunuch', {'on': '<Plug>EnableIDE'}
 call plug#end()
 
 
