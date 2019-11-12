@@ -77,7 +77,7 @@ function SetAutoComplete()
     set dictionary+=~/.vim/dict/google-words.txt
   else
     set omnifunc=syntaxcomplete#Complete
-    imap vv  <C-x><C-n>
+    imap vv  <C-n>
     imap vo  <C-x><C-o>
   endif
 endfunction
@@ -100,12 +100,12 @@ set backspace=indent,eol,start
 
 """ COLORSCHEMES
 "colorscheme wombat
-"colorscheme gruvbox
+colorscheme gruvbox
 "colorscheme twilight256
 "colorscheme dracula
 "colorscheme palenight
 "colorscheme nord
-colorscheme onedark
+"colorscheme onedark
 "colorscheme seoul256
 
 
@@ -176,16 +176,16 @@ map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'bufli
 
 """ CTRLP SETTINGS
 let g:ctrlp_map = ''
-nmap <c-b> :CtrlPBuffer<cr>
-nmap <c-m> :CtrlPMRU<cr>
+nmap <leader>b :CtrlPBuffer<cr>
+nmap <leader>m :CtrlPMRU<cr>
 
 
 """ TAGBAR SETTINGS
-nmap tb :TagbarToggle<CR>
+nmap <leader>tb :TagbarToggle<CR>
 
 
 """ GOYO SETTINGS
-nmap <silent> gyg :call ToggleGoyo()<CR>
+nmap <leader>gy :call ToggleGoyo()<CR>
 let g:goyo_enabled = 0
 
 function ToggleGoyo()
@@ -215,14 +215,17 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 """ AIRLINE SETTINGS
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='bubblegum'
+let g:airline_theme='base16'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
 
 
 """ ALE SETTINGS
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
   \ 'haskell': ['hlint', 'hdevtools', 'hfmt'],
-  \ 'python': ['mypy', 'pycodestyle'],
+  \ 'python': ['mypy', 'pycodestyle', 'pylint'],
   \ 'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck', 'xo'],
   \ 'javascript': ['eslint', 'ecs', 'flow', 'flow_ls', 'jscs', 'jshint', 'standard', 'tsserver', 'xo'],
   \ 'cs': ['csc', 'msc', 'mcsc']
