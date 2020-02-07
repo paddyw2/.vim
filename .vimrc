@@ -100,7 +100,8 @@ set backspace=indent,eol,start
 
 """ COLORSCHEMES
 "colorscheme wombat
-colorscheme gruvbox
+"colorscheme gruvbox
+colorscheme despacio
 "colorscheme twilight256
 "colorscheme dracula
 "colorscheme palenight
@@ -108,6 +109,17 @@ colorscheme gruvbox
 "colorscheme onedark
 "colorscheme seoul256
 
+function CustomizeSyntaxCheckerColors()
+  if g:colors_name == 'despacio'
+    hi Error ctermbg=9 ctermfg=234
+    hi SpellBad ctermbg=234 ctermfg=9
+
+    hi Todo ctermbg=214 ctermfg=234
+    hi SpellCap ctermbg=234 ctermfg=214
+  endif
+endfunction
+
+call CustomizeSyntaxCheckerColors()
 
 """ CTAGS
 set tags+=.git/tags
@@ -215,7 +227,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 """ AIRLINE SETTINGS
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16'
+let g:airline_theme='base16_grayscale'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
