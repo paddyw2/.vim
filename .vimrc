@@ -1,4 +1,4 @@
-" GENERAL SETTINGS
+""" GENERAL SETTINGS
 set encoding=utf8
 set t_Co=256
 syntax on
@@ -57,12 +57,21 @@ set softtabstop=4
 """ SET FILE TYPES FOR SPECIFIC EXTENSIONS
 au BufNewFile,BufRead *.pug set filetype=pug
 au BufNewFile,BufRead *.ejs set filetype=html
+au BufNewFile,BufRead *.py set
+      \ tabstop=4
+      \ softtabstop=4
+      \ shiftwidth=4
+"      \ textwidth=88
+      \ expandtab
+      \ autoindent
+      \ fileformat=unix
 
 
 """ SET INDENTATION FOR SPECIFIC FILE TYPES
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType pug setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -78,7 +87,7 @@ function SetAutoComplete()
   else
     set omnifunc=syntaxcomplete#Complete
     imap vv  <C-n>
-    imap vo  <C-x><C-o>
+    imap vx  <C-x><C-o>
   endif
 endfunction
 
@@ -101,25 +110,17 @@ set backspace=indent,eol,start
 """ COLORSCHEMES
 "colorscheme wombat
 "colorscheme gruvbox
-colorscheme despacio
 "colorscheme twilight256
 "colorscheme dracula
 "colorscheme palenight
 "colorscheme nord
 "colorscheme onedark
 "colorscheme seoul256
+"set termguicolors
+"let ayucolor="mirage"
+"colorscheme ayu
+colorscheme nord
 
-function CustomizeSyntaxCheckerColors()
-  if g:colors_name == 'despacio'
-    hi Error ctermbg=9 ctermfg=234
-    hi SpellBad ctermbg=234 ctermfg=9
-
-    hi Todo ctermbg=214 ctermfg=234
-    hi SpellCap ctermbg=234 ctermfg=214
-  endif
-endfunction
-
-call CustomizeSyntaxCheckerColors()
 
 """ CTAGS
 set tags+=.git/tags
@@ -164,19 +165,22 @@ call plug#begin()
   Plug 'vim-airline/vim-airline-themes'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
   Plug 'junegunn/fzf.vim'
+  Plug 'arcticicestudio/nord-vim'
   " writing plugins, loaded on EnableGoyo
-  Plug 'junegunn/goyo.vim', {'on': '<Plug>EnableGoyo'}
-  Plug 'junegunn/limelight.vim', {'on': '<Plug>EnableGoyo'}
+  Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/limelight.vim'
 "  " IDE plugins, loaded on EnableIDE
-  Plug 'dense-analysis/ale', {'on': '<Plug>EnableIDE'}
-  Plug 'ycm-core/YouCompleteMe', {'on': '<Plug>EnableIDE'}
-  Plug 'ternjs/tern_for_vim', {'on': '<Plug>EnableIDE'}
-  Plug 'tpope/vim-fugitive', {'on': '<Plug>EnableIDE'}
-  Plug 'airblade/vim-gitgutter', {'on': '<Plug>EnableIDE'}
-  Plug 'ctrlpvim/ctrlp.vim', {'on': '<Plug>EnableIDE'}
-  Plug 'tpope/vim-dispatch', {'on': '<Plug>EnableIDE'}
-  Plug 'majutsushi/tagbar', {'on': '<Plug>EnableIDE'}
-  Plug 'tpope/vim-eunuch', {'on': '<Plug>EnableIDE'}
+  Plug 'dense-analysis/ale'
+  Plug 'ycm-core/YouCompleteMe'
+  Plug 'ternjs/tern_for_vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'tpope/vim-dispatch'
+  Plug 'majutsushi/tagbar'
+  Plug 'tpope/vim-eunuch'
+  Plug 'omnisharp/omnisharp-vim'
+  Plug 'psf/black'
 call plug#end()
 
 
@@ -227,10 +231,9 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 """ AIRLINE SETTINGS
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16_grayscale'
-let g:airline_powerline_fonts = 1
+let g:airline_theme='base16'
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
-
 
 
 """ ALE SETTINGS
@@ -240,7 +243,9 @@ let g:ale_linters = {
   \ 'python': ['mypy', 'pycodestyle', 'pylint'],
   \ 'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck', 'xo'],
   \ 'javascript': ['eslint', 'ecs', 'flow', 'flow_ls', 'jscs', 'jshint', 'standard', 'tsserver', 'xo'],
-  \ 'cs': ['csc', 'msc', 'mcsc']
+  \ 'cs': ['OmniSharp']
   \ }
 let g:ale_sign_error = '➜'
 let g:ale_sign_warning = '➜'
+let g:ale_python_pylint_options= "--init-hook='import sys; sys.path.append(".")'"
+let g:ale_python_mypy_options= "--ignore-missing-imports"
