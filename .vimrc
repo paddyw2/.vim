@@ -171,7 +171,7 @@ call plug#begin()
   Plug 'junegunn/limelight.vim'
 "  " IDE plugins, loaded on EnableIDE
   Plug 'dense-analysis/ale'
-  Plug 'ycm-core/YouCompleteMe'
+"  Plug 'ycm-core/YouCompleteMe'
   Plug 'ternjs/tern_for_vim'
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
@@ -185,9 +185,11 @@ call plug#end()
 
 
 """ FZF SETTINGS
-map <silent> fzf :call fzf#run({"sink":"e", "down": "50%"})<CR>
-map <silent> ffa :call fzf#run({"dir": "~/", "sink":"e", "down": "50%"})<CR>
-map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'v:val . " " . bufname(v:val)'), "sink":"e", "down": "50%"})<CR>
+map <silent> fzf :Files<CR>
+map <silent> ffb :Buffers<CR>
+map <silent> fzz :call fzf#run({"sink":"e", "down": "50%"})<CR>
+" map <silent> ffa " :call fzf#run({"dir": "~/", "sink":"e", "down": "50%"})<CR>
+" map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'v:val . " " . bufname(v:val)'), "sink":"e", "down": "50%"})<CR>
 
 
 """ CTRLP SETTINGS
@@ -231,7 +233,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 """ AIRLINE SETTINGS
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16'
+let g:airline_theme='tomorrow' " 'ubaryd' " 'minimalist' "'deus'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
