@@ -185,6 +185,7 @@ call plug#end()
 
 
 """ FZF SETTINGS
+map grep :Rg 
 map <silent> fzf :Files<CR>
 map <silent> ffb :Buffers<CR>
 map <silent> fzz :call fzf#run({"sink":"e", "down": "50%"})<CR>
@@ -233,7 +234,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 """ AIRLINE SETTINGS
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='tomorrow' " 'ubaryd' " 'minimalist' "'deus'
+let g:airline_theme= 'tomorrow' " 'ubaryd' " 'minimalist' "'deus'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
