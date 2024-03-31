@@ -130,7 +130,7 @@ colorscheme nord
 
 """ CTAGS
 set tags+=.git/tags
-nmap <silent> tt :!ctags -R --tag-relative=no -f ./.git/tags .<CR>
+" nmap <silent> tt :!ctags -R --tag-relative=no -f ./.git/tags .<CR>
 
 
 """ FOLDING
@@ -167,13 +167,16 @@ map :fmt :%!black -q - \| isort - \| autoimport -
 
 
 """ FZF SETTINGS
+" Initialize configuration dictionary
+let g:fzf_vim = {}
+
 map grep :Rg 
 map <silent> fzf :Files<CR>
 map <silent> fbf :Buffers<CR>
 map <silent> faf :Buffers<CR>
 map <silent> fzz :call fzf#run({"sink":"e", "down": "50%"})<CR>
 """ generate ctags while excluding based on gitignore
-let g:fzf_vim.tags_command = 'ctags -R $((git ls-files --ignored --exclude-standard -o | sed "s/^/--exclude=/g") || echo "")'
+let g:fzf_vim.tags_command = 'ctags -R -f ./tags $((git ls-files --ignored --exclude-standard -o | sed "s/^/--exclude=/g") || echo "")'
 '
 " map <silent> ffa " :call fzf#run({"dir": "~/", "sink":"e", "down": "50%"})<CR>
 " map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'v:val . " " . bufname(v:val)'), "sink":"e", "down": "50%"})<CR>
