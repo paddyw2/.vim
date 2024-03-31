@@ -24,6 +24,12 @@ nmap <silent> bd :bd<cr>
 nmap <silent> bn :bn<cr>
 nmap <silent> bp :bp<cr>
 
+""" new file in current buffer directory
+map new :e %:h/
+
+""" vim-test
+""" TestNearest TestFile TestSuite TestLast TestVisit
+map test :TestNearest<CR>
 
 """ TEXTFILE SPELL CHECK
 map :spl :set spell spelllang=en_us
@@ -146,6 +152,7 @@ call plug#begin()
   Plug 'arcticicestudio/nord-vim'
   Plug 'psf/black'
   Plug 'tpope/vim-abolish'
+  Plug 'vim-test/vim-test'
 call plug#end()
 
 """ isort
@@ -165,6 +172,9 @@ map <silent> fzf :Files<CR>
 map <silent> fbf :Buffers<CR>
 map <silent> faf :Buffers<CR>
 map <silent> fzz :call fzf#run({"sink":"e", "down": "50%"})<CR>
+""" generate ctags while excluding based on gitignore
+let g:fzf_vim.tags_command = 'ctags -R $((git ls-files --ignored --exclude-standard -o | sed "s/^/--exclude=/g") || echo "")'
+'
 " map <silent> ffa " :call fzf#run({"dir": "~/", "sink":"e", "down": "50%"})<CR>
 " map <silent> ffb :call fzf#run({"source": map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'v:val . " " . bufname(v:val)'), "sink":"e", "down": "50%"})<CR>
 
