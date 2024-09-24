@@ -31,6 +31,9 @@ map new :e %:h/
 """ TestNearest TestFile TestSuite TestLast TestVisit
 map test :TestNearest<CR>
 
+"" llm
+command! -nargs=1 Llm vert terminal ollama run qwen2.5:3b <q-args>
+
 """ TEXTFILE SPELL CHECK
 map :spl :set spell spelllang=en_us
 map :splr :hi SpellBad ctermfg=218 <bar> ::hi SpellLocal ctermfg=218 <bar> set spell spelllang=en_us
