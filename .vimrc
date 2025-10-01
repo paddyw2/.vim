@@ -14,7 +14,7 @@ vmap jk <ESC>
 inoremap jk <ESC>
 set noerrorbells
 set vb t_vb=
-set timeoutlen=400 ttimeoutlen=0
+" set timeoutlen=400 ttimeoutlen=0
 
 """ CRONTAB FILE COMPATIBILITY
 set backupskip=/tmp/*,/private/tmp/*"
@@ -90,7 +90,7 @@ autocmd FileType pug setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType * call SetAutoComplete()
 
 function SetAutoComplete()
-  if &ft =~ 'markdown\|text'
+  if &ft =~ ''
     imap vv <C-x><C-k>
     set dictionary+=~/.vim/dict/google-words.txt
   else
@@ -153,10 +153,32 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
   Plug 'junegunn/fzf.vim'
   Plug 'arcticicestudio/nord-vim'
-  Plug 'psf/black'
+  " Plug 'psf/black'
   Plug 'tpope/vim-abolish'
   Plug 'vim-test/vim-test'
 call plug#end()
+
+function RuffFormat()
+    let current_linno=line(".")
+    echo printf("Running Ruff...")
+    silent %!ruff format -s -
+    let exit1 = 0 " TODO
+    silent %!ruff check --select F401,I --fix -s -
+    let exit2 = 0 " TODO
+    " clear any previous messages before showing final messages
+    redraw
+    if (exit1 + exit2 != 0)
+      echo printf("Ruff failed with exit codes %d and %d", exit1, exit2)
+    else
+      echo printf("Ruff completed successfully.")
+    endif
+    exe current_linno
+endfunction
+command Ruff call RuffFormat()
+
+""" test
+let test#python#pytest#options = '--pdb'
+
 
 """ isort
 map isort :%!isort - <CR>
